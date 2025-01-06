@@ -1,2 +1,2 @@
 # transitly-news-site
-A demo website for a simple 
+A demo news website for a transit publication
