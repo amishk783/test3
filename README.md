@@ -29,7 +29,8 @@ Before you begin, ensure you have the following installed:
 ### 3. **Access the Application**
 
 - **Frontend (React)**: Available at http://localhost:5173
-- **Backend (Node.js/Express)**: Available at http://localhost:5000.
+- **Backend (Node.js/Express)**: Available at http://localhost:5005.
+- **Storybook**: Open http://localhost:6006 in your browser.
 
 ## Storybook
 

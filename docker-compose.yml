@@ -1,5 +1,18 @@
 version: "3.7"
 services:
+  storybook:
+    build: ./frontend
+    container_name: storybook
+    ports:
+      - "6006:6006"
+    volumes:
+      - ./frontend:/app/frontend
+      - /home/app/frontend/node_modules
+    command: npm run storybook
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - CI=true
+
   frontend:
     build:
       context: ./frontend
@@ -19,6 +32,6 @@ services:
       context: ./backend
     container_name: mediapay-backend
     ports:
-      - "5000:5000"
+      - "5005:5000"
     volumes:
-      - ./backend:/app/backend
+      - /home/app/backend/node_modules
