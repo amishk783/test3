@@ -32,6 +32,6 @@ services:
       context: ./backend
     container_name: mediapay-backend
     ports:
-      - "5005:5000"
+      - "5005:5005"
     volumes:
       - /home/app/backend/node_modules

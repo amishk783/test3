@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 
 const app = express();
-const PORT = 5000;
+const PORT = 5005;
 console.log("🚀 ~ PORT:", PORT);
 
 app.use(express.json());
