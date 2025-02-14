@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+  storybook:
+    build: ./frontend
+    container_name: storybook
+    ports:
+      - "6006:6006"
+    volumes:
+      - ./frontend:/app/frontend
+      - /home/app/frontend/node_modules
+    command: npm run storybook
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - CI=true
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: mediapay-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app/frontend
+      - /home/app/frontend/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+  backend:
+    build:
+      context: ./backend
+    container_name: mediapay-backend
+    ports:
+      - "5005:5005"
+    volumes:
+      - /home/app/backend/node_modules
