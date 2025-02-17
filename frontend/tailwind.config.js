@@ -4,6 +4,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", "/src"],
   theme: {
     extend: {
+      fontFamily: {
+        manrope: "var(--font-manrope)",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
