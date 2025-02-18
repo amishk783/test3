@@ -6,13 +6,12 @@ import { useState } from "react";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import Logo from "@/assets/logo.png";
 
-
 import profileImage from "@/assets/avatar_demo.jpeg";
 
-const Header = () => {
+export const Header = () => {
   const [isUser, setUser] = useState(false);
   return (
-    <div className="w-full font-manrope h-min flex items-center justify-between px-20 py-4 my-4">
+    <div className="w-full font-manrope h-min flex items-center justify-between px-8 py-4 my-4">
       <div className="w-36 h-10">
         <img src={Logo} className=" w-full h-full aspect-square " />
       </div>
@@ -50,5 +49,3 @@ const Header = () => {
     </div>
   );
 };
-
-export default Header;

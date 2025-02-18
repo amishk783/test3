@@ -63,6 +63,8 @@
 }
 
 @layer base {
+
+
   * {
     @apply border-border;
   }
@@ -70,8 +72,15 @@
   body {
     @apply bg-background text-foreground;
   }
-}
 
+
+  .max-container {
+    max-width: 1330px;
+    padding: 0 15px;
+    margin: auto;
+
+  }
+}
 
 
 @layer base {
