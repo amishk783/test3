@@ -16,7 +16,9 @@ services:
   frontend:
     build:
       context: ./frontend
-    container_name: mediapay-frontend
+      platforms: [linux/amd64]
+    image: transitlyregistry.azurecr.io/transitly-frontend:latest
+    container_name: transitly-frontend
     ports:
       - "5173:80"
     depends_on:
@@ -30,7 +32,9 @@ services:
   backend:
     build:
       context: ./backend
-    container_name: mediapay-backend
+      platforms: [linux/amd64]
+    image: transitlyregistry.azurecr.io/transitly-backend:latest
+    container_name: transitly-backend
     ports:
       - "5005:5005"
     volumes:
