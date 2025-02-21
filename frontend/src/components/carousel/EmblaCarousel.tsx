@@ -53,7 +53,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
       <div className="embla__controls">
         <div className="embla__buttons"></div>
 
-        <div className=" absolute z-50 bottom-12 right-10 flex gap-2 ">
+        <div className=" absolute z-40 bottom-12 right-10 flex gap-2 ">
           {slides.map((_, index) => (
             <div
               className={cn(

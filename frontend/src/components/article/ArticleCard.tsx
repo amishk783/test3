@@ -22,7 +22,7 @@ export const ArticleCard: React.FC<Props> = ({
           <p>{author}</p>
         </div>
         <div className="flex flex-col gap-2">
-          <h4 className=" text-xl font-semibold">{title}</h4>
+          <h4 className="text-lg md:text-xl font-semibold">{title}</h4>
           <p className=" text-black/70">{description}</p>
         </div>
       </div>

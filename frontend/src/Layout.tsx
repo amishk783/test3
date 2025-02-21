@@ -3,9 +3,9 @@ import { Footer } from "./components/common/Footer";
 import { Header } from "@/components/common/Header";
 
 const Layout = () => (
-  <div className="">
+  <div className="w-full">
     <Header />
-    <Outlet /> {/* This is where child routes will render */}
+    <Outlet />
     <Footer />
   </div>
 );

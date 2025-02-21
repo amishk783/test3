@@ -9,6 +9,7 @@ import Login from "./pages/Login.tsx";
 
 import Layout from "./Layout.tsx";
 import Contact from "./pages/Contact.tsx";
+import Settings from "./pages/Settings/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <App /> },
       { path: "articles", element: <></> },
+      { path: "settings", element: <Settings /> },
       { path: "contactus", element: <Contact /> },
       { path: "articles/:id", element: <></> },
     ],
