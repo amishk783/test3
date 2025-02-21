@@ -39,7 +39,7 @@ function App() {
             <h3 className=" font-bold text-4xl md:text-5xl">
               Welcome to Our News Hub
             </h3>
-            <div className="flex gap-3 py-3 lg:w-[40%] flex-wrap">
+            <div className="flex gap-3 py-3 2xl:w-[40%] flex-wrap">
               {categories.map((category, index) => (
                 <Button
                   variant={index === 0 ? "primary" : "outline"}
@@ -51,7 +51,7 @@ function App() {
             </div>
           </div>
           <Button
-            className=" self-end rounded-full px-8 gap-2"
+            className=" self-end lg:self-center rounded-full px-8 gap-2"
             variant="outline"
           >
             Sort By
@@ -70,10 +70,10 @@ function App() {
         </div>
       </div>
       {/* popular news */}
-      <div className="w-full h-full py-10 lg:px-20 md:py-40 md:my-10 rounded-lg">
+      <div className="w-full h-full py-10 2xl:px-20 md:py-40 md:my-10 rounded-lg max-sm:px-4">
         <div className="flex flex-col gap-10 md:gap-20 w-full items-center justify-center">
           <h4 className="text-4xl md:text-5xl font-bold">Popular News</h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-3 py-5 w-full  lg:w-5/6 gap-5 md:h-[700px] ">
+          <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-3 py-5 w-full  2xl:w-5/6 gap-5 md:h-[700px] ">
             <div className="col-span-1 md:row-span-3 w-full">
               <img
                 className="  md:w-full object-cover"
@@ -117,7 +117,7 @@ function App() {
               <div className="flex flex-col md:flex-row gap-6 md:row-span-1">
                 <img
                   src="/src/assets/news/news_3.png"
-                  className=" w-full md:w-[110px] md:h-[110px]  lg:w-[220px] object-cover"
+                  className=" w-full md:w-[110px] md:h-[110px]  lg:w-[220px]  lg:h-[220px]  object-cover"
                 />
                 <div className="flex flex-col gap-2 justify-between">
                   <div className="flex flex-col lg:gap-2">
