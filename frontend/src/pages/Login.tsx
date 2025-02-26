@@ -8,16 +8,11 @@ const Login = () => {
     <div className="w-full h-full flex ">
       <div className="w-1/2 h-full py-8 px-12 hidden md:block">
         <div className="  md:w-full xl:w-[692px] h-[884px] rounded-xl overflow-hidden">
-          <img
-            width={692}
-            height={884}
-            className="w-full h-full"
-            src={LoginDisplayImage}
-          ></img>
+          <img className="md:h-full xl:w-5/6 2xl:w-2/3  " src={LoginDisplayImage}></img>
         </div>
       </div>
-      <div className="md:w-1/2 flex gap-8 lg:gap-16 flex-col h-full p-6 md:p-12 ">
-        <div className="flex items-end w-full justify-start">
+      <div className="md:w-1/2 flex gap-8 lg:gap-16 flex-col h-full justify-center p-12 ">
+        <div className="flex items-end w-full justify-start ">
           <h3 className="text-xl font-lobster">Transitly</h3>
         </div>
         <div className="w-full h-full flex justify-center  gap-8 flex-col">
