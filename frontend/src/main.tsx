@@ -10,6 +10,7 @@ import Login from "./pages/Login.tsx";
 import Layout from "./Layout.tsx";
 import Contact from "./pages/Contact.tsx";
 import Settings from "./pages/Settings/index.tsx";
+import { Article } from "./pages/Article/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <App /> },
-      { path: "articles", element: <></> },
+      { path: "article", element: <Article /> },
       { path: "settings", element: <Settings /> },
       { path: "contactus", element: <Contact /> },
       { path: "articles/:id", element: <></> },

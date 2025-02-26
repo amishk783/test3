@@ -16,7 +16,7 @@ Before you begin, ensure you have the following installed:
 ### 1. **Clone the repository**:
 
 ```bash
-    git clone https://github.com/amishK342/mediapay.git
+    git clone https://github.com/media-pay/transitly-news-site.git
     cd mediapay
 ```
 
