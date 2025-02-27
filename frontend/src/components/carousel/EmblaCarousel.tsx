@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { EmblaCarouselType, EmblaOptionsType } from "embla-carousel";
+import React, { useEffect, useState } from "react";
+import { EmblaOptionsType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { useAutoplay } from "./EmblaCarouselAutoplay";
-import { useAutoplayProgress } from "./progress";
+
 import { cn } from "@/lib/utils";
 
 type PropType = {
@@ -13,18 +12,13 @@ type PropType = {
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
   const { slides, options } = props;
-  const progressNode = useRef<HTMLDivElement>(null);
+
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [
     Autoplay({ playOnInit: true, delay: 3000 }),
   ]);
 
   useEffect(() => {});
-
-  const { showAutoplayProgress } = useAutoplayProgress(
-    emblaApi,
-    progressNode as React.RefObject<HTMLElement>
-  );
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -34,16 +28,13 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
   }, [emblaApi]);
 
   return (
-    <div className="embla relative">
+    <div className="embla w-full lg:w-5/6 relative">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           {slides.map((slide, index) => (
-            <div className="embla__slide" key={index}>
+            <div className="embla__slide  " key={index}>
               <div className="embla__slide__number">
-                <img
-                  className="w-full h-full object-center object-fill"
-                  src={slide}
-                />
+                <img className="w-full h-full " src={slide} />
               </div>
             </div>
           ))}

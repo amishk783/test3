@@ -5,7 +5,7 @@ import { articles, categories } from "./constant";
 import { Button } from "./components/ui/button";
 import { FaChevronDown } from "react-icons/fa";
 import { ArticleCard } from "./components/article/ArticleCard";
-import { SubscriptionPopUp } from "./components/SubscriptionPopUp";
+
 function App() {
   const OPTIONS: EmblaOptionsType = { loop: true };
   const SLIDES = [
@@ -19,8 +19,8 @@ function App() {
       <div className="w-full justify-between px-4 flex flex-col lg:flex-row pb-10 sm:py-12 lg:items-center gap-4 lg:gap-16 ">
         <div className="flex flex-col md:gap-1 lg:w-1/2 ">
           <p className=" font-bold text-sm">Latest Transit News</p>
-          <h2 className="font-bold text-4xl md:text-7xl">Today's Headline:</h2>
-          <h2 className="font-bold text-4xl md:text-7xl">Stay Informed</h2>
+          <h2 className="font-bold text-4xl md:text-6xl">Today's Headline:</h2>
+          <h2 className="font-bold text-4xl md:text-6xl">Stay Informed</h2>
         </div>
         <p className=" text-base md:text-2xl text-black/70 lg:w-1/2 ">
           Explore the latest news from around the world. We bring you
@@ -29,7 +29,7 @@ function App() {
         </p>
       </div>
       {/* carousel */}
-      <div className="w-full h-full px-4 relative">
+      <div className="w-full h-full px-2 md:px-10 relative">
         <EmblaCarousel slides={SLIDES} options={OPTIONS} />
       </div>
       {/* news hub */}

@@ -1,11 +1,9 @@
-import Logo from "@/assets/logo.png";
-
 export const Footer = () => {
   return (
     <div className="w-full h-min font-manrope px-4 md:px-10 lg:px-20 bg-secondary">
       <div className="w-full py-10 border-b flex flex-col gap-8  md:flex-row justify-between border-black/30">
         <div className="w-36 h-10">
-          <img src={Logo} className=" w-full h-full aspect-square " />
+          <img src="/logo.png" className=" w-full h-full aspect-square " />
         </div>
         <div className="flex gap-10 md:gap-20 md:px-24">
           <div className="flex flex-col gap-5">

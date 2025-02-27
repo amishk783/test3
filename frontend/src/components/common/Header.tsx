@@ -4,17 +4,18 @@ import { IoSearchOutline } from "react-icons/io5";
 import { Input } from "../ui/input";
 import { useState } from "react";
 import { Avatar, AvatarImage } from "../ui/avatar";
-import Logo from "@/assets/logo.png";
+
 import { RxHamburgerMenu } from "react-icons/rx";
 
 import profileImage from "@/assets/avatar_demo.jpeg";
 
 export const Header = () => {
   const [isUser, setUser] = useState(false);
+  console.log("🚀 ~ Header ~ setUser:", setUser)
   return (
     <div className="w-full font-manrope h-min flex items-center justify-between px-4 sm:px-8 py-4 my-4">
       <div className="w-36 h-10">
-        <img src={Logo} className=" w-full h-full aspect-square " />
+        <img src="/logo.png" className=" w-full h-full aspect-square " />
       </div>
       <div className="md:flex gap-4 items-center  ">
         <Button variant="ghost" className="text-base hidden md:flex">
