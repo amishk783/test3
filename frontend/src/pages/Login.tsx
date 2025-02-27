@@ -6,28 +6,23 @@ import OutlookIcon from "@/assets/outlook_icon.png";
 const Login = () => {
   return (
     <div className="w-full h-full flex ">
-      <div className="w-1/2 h-full py-8 px-12">
-        <div className="w-[692px] h-[884px] rounded-xl overflow-hidden">
-          <img
-            width={692}
-            height={884}
-            className="w-full "
-            src={LoginDisplayImage}
-          ></img>
+      <div className="w-1/2 h-full py-8 px-12 hidden md:block">
+        <div className="  md:w-full xl:w-[692px] h-[884px] rounded-xl overflow-hidden">
+          <img className="md:h-full xl:w-5/6 2xl:w-2/3  " src={LoginDisplayImage}></img>
         </div>
       </div>
-      <div className="w-1/2 flex gap-16 flex-col h-full p-12">
-        <div className="flex items-end w-full justify-start">
+      <div className="md:w-1/2 flex gap-8 lg:gap-16 flex-col h-full justify-center p-12 ">
+        <div className="flex items-end w-full justify-start ">
           <h3 className="text-xl font-lobster">Transitly</h3>
         </div>
         <div className="w-full h-full flex justify-center  gap-8 flex-col">
-          <div className="w-2/3 flex gap-4 flex-col">
+          <div className="xl:w-2/3 flex gap-4 flex-col">
             <h4 className="text-5xl text-bold">Welcome Back</h4>
             <p className=" text-xl">
               Access your personalized transit updates.
             </p>
           </div>
-          <div className="flex flex-col gap-4 w-2/3 items-center">
+          <div className="flex flex-col gap-4 xl:w-2/3 items-center">
             <div className="flex flex-col w-full items-start gap-2">
               <p>Name*</p>
               <Input

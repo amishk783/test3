@@ -20,6 +20,9 @@ export default defineConfig(({ mode }) => {
       watch: {
         usePolling: true,
       },
+      allowedHosts: [
+        "transitly-frontend.kindriver-21fb5313.centralus.azurecontainerapps.io",
+      ],
     },
     plugins: [react()],
   };
