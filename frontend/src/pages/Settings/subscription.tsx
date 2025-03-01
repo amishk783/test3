@@ -5,27 +5,30 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
+import demoPayment1 from "/src/assets/payment/payment_1.png";
+import demoPayment2 from "/src/assets/payment/payment_2.png";
+import demoPayment3 from "/src/assets/payment/payment_3.png";
 const demoPayment = [
   {
     id: 1,
     cardName: "American Express",
     cardNumber: "**** 8092",
     expireDate: "12/26",
-    cardImage: "/src/assets/payment/payment_1.png",
+    cardImage: demoPayment1,
   },
   {
     id: 2,
     cardName: "Mastercard",
     cardNumber: "**** 8092",
     expireDate: "12/26",
-    cardImage: "/src/assets/payment/payment_2.png",
+    cardImage: demoPayment2,
   },
   {
     id: 3,
     cardName: "Visa",
     cardNumber: "**** 8092",
     expireDate: "12/26",
-    cardImage: "/src/assets/payment/payment_3.png",
+    cardImage: demoPayment3,
   },
 ];
 

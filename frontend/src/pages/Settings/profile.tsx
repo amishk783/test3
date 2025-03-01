@@ -4,8 +4,8 @@ import AvatarDemo from "@/assets/profile.png";
 import { Input } from "@/components/ui/input";
 export const SettingsProfile = () => {
   return (
-    <div className="w-full h-full">
-      <div className="w-full py-12 border-black/70 border-b ">
+    <div className=" flex flex-col gap-16 w-full h-full">
+      <div className="w-full   ">
         <p className=" font-bold pb-8">Profile Photo</p>
         <div className="flex flex-col lg:flex-row md:gap-10  gap-4">
           <div className="flex items-center gap-5">
@@ -33,7 +33,8 @@ export const SettingsProfile = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col py-14 gap-10">
+      <div className=" h-[1px] w-full bg-black/20"></div>
+      <div className="flex flex-col  gap-10 pb-20">
         <p className=" font-bold">User Details</p>
         <div className="flex flex-col gap-4">
           <div className="flex w-full gap-5">

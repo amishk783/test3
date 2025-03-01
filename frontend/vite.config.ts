@@ -23,6 +23,7 @@ export default defineConfig(({ mode }) => {
       allowedHosts: [
         "transitly-frontend.kindriver-21fb5313.centralus.azurecontainerapps.io",
       ],
+      hmr: process.env.NODE_ENV !== "production",
     },
     plugins: [react()],
   };

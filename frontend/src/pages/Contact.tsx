@@ -10,7 +10,7 @@ const Contact = () => {
           <div className="flex flex-col gap-2 justify-center">
             <p className="font-bold">Reach out to us</p>
             <h3 className=" font-bold text-5xl md:text-6xl">Contact Us</h3>
-            <p className="text-black/70 w-[90%] md:text-xl">
+            <p className="text-black/60 w-[90%] md:text-xl">
               We’d love to hear from you! Whether you have questions, feedback,
               or partnership inquiries, feel free to reach out.
             </p>
@@ -56,11 +56,13 @@ const Contact = () => {
             src={OverlayImage}
             className=" absolute w-full h-[320px] md:h-[528px] object-center -z-10 object-cover rounded-xl brightness-50"
           />
-          <div className="lg:w-1/2 text-center h-full flex flex-col px-4 text-white items-center justify-center">
-            <p className=" font-bold">Subscribe to Our Newsletter</p>
-            <h4 className=" font-bold text-2xl md:text-5xl">
-              Stay updated with the latest transit news!
-            </h4>
+          <div className="lg:w-1/2 text-center h-full flex flex-col px-4 gap-8 text-white items-center justify-center">
+            <div>
+              <p className=" font-bold">Subscribe to Our Newsletter</p>
+              <h4 className=" font-bold text-2xl md:text-5xl">
+                Stay updated with the latest transit news!
+              </h4>
+            </div>
             <div className="flex py-4 relative md:w-1/2  lg:w-2/3">
               <Input
                 placeholder="Enter Your Email Here"

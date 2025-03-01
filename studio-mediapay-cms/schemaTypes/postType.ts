@@ -28,12 +28,19 @@ export const postType = defineType({
     }),
     defineField({
       name: 'body',
+      title: 'Body',
       type: 'array',
-      of: [{type: 'block'}],
+      of: [{type: 'block'}, {type: 'image'}],
     }),
     defineField({
       name: 'author',
       type: 'string',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'category',
+      type: 'reference',
+      to: [{type: 'category'}],
       validation: (rule) => rule.required(),
     }),
   ],
