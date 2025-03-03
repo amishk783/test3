@@ -13,6 +13,9 @@ import news1 from "./assets/news/news_1.png";
 import news2 from "./assets/news/news_2.png";
 import news3 from "./assets/news/news_3.png";
 import news4 from "./assets/news/news_4.png";
+import { useEffect, useState } from "react";
+import { CarouselType } from "./type";
+import api from "./lib/api";
 
 function App() {
   const OPTIONS: EmblaOptionsType = { loop: true };
@@ -31,6 +34,23 @@ function App() {
       subtitles: ["Real Devlopments", "October 10,2023", "Jane Smith"],
     },
   ];
+
+  const [carousel, setCarousel] = useState<CarouselType[] | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    const fetchCarousel = async () => {
+      setIsLoading(true);
+      const res = await api.get(`carousel`);
+
+      const data: CarouselType[] = res.data;
+      console.log("🚀 ~ fetchPosts ~ data:", data);
+
+      setCarousel(data);
+      setIsLoading(false);
+    };
+
+    fetchCarousel();
+  }, []);
   return (
     <div className="w-full font-manrope py-2 md:px-10 lg:px-20">
       {/* hero-section */}
@@ -49,7 +69,7 @@ function App() {
       </div>
       {/* carousel */}
       <div className="w-full h-full px-2 md:px-10 relative">
-        <EmblaCarousel slides={SLIDES} options={OPTIONS} />
+        {carousel && <EmblaCarousel slides={carousel} options={OPTIONS} />}
       </div>
       {/* news hub */}
       <div className="w-full h-full bg-secondary px-4 md:px-20 py-28 my-10 rounded-lg">

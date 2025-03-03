@@ -16,3 +16,9 @@ export interface PostType {
   body: SanityBlock[];
   category: string;
 }
+
+export interface CarouselType {
+  title: string;
+  image: string;
+  subTitles: string[];
+}

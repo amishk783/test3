@@ -18,3 +18,11 @@ export const getPost = async (req: Request, res: Response) => {
 
   res.status(200).json(post);
 };
+
+export const getCarousel = async (req: Request, res: Response) => {
+  const carousels = await client.fetch(
+    `*[_type == "carousel"]{title,subTitles,"image": image.asset->url}`
+  );
+
+  res.status(200).json(carousels);
+};
