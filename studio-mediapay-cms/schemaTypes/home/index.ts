@@ -23,5 +23,9 @@ export const HomePageType = defineType({
       of: [{type: 'carousel'}],
       title: 'Carousel',
     }),
+    defineField({
+      name: 'popularSection',
+      type: 'popularSection',
+    }),
   ],
 })

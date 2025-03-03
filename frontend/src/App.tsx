@@ -14,6 +14,7 @@ import { useFetch } from "./hooks/useFetch";
 import { ArticleList, HomePageType } from "./type";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
+import { subtle } from "crypto";
 
 function App() {
   const OPTIONS: EmblaOptionsType = { loop: true };
@@ -47,11 +48,6 @@ function App() {
     console.log("🚀 ~ handleCategoryClick ~ _id:", _id);
     const filteredArticles = data.articleList.filter(
       (article) => article.categoryId === _id
-    );
-
-    console.log(
-      "🚀 ~ handleCategoryClick ~ filteredArticles:",
-      filteredArticles
     );
 
     setArticles(filteredArticles);
@@ -128,6 +124,11 @@ function App() {
           </Button>
         </div>
         <div className=" grid  md:grid-cols-2 lg:grid-cols-3 w-full py-14 gap-4 md:gap-10 ">
+          {articles?.length === 0 && (
+            <p className=" text-xl text-center py-5 ">
+              No article found for this category.
+            </p>
+          )}
           {articles &&
             articles.map((article, index) => (
               <ArticleCard key={index} {...article} />
@@ -142,89 +143,52 @@ function App() {
       {/* popular news */}
       <div className="w-full h-full py-10 2xl:px-20 md:py-40 md:my-10 rounded-lg max-sm:px-4">
         <div className="flex flex-col gap-10 md:gap-20 w-full items-center justify-center">
-          <h4 className="text-4xl md:text-5xl font-bold">Popular News</h4>
+          <h4 className="text-4xl md:text-5xl font-bold">
+            {data?.popularSection.title}
+          </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-3 py-5 w-full  2xl:w-5/6 gap-5 md:h-[700px] ">
             <div className="col-span-1 md:row-span-3 w-full">
-              <img className="  md:w-full object-cover" src={news1} />
+              <img
+                className="  md:w-full object-cover"
+                src={data?.popularSection.spotLightPopular.imageUrl}
+              />
               <div className="flex flex-col gap-4 pt-4">
                 <div className="flex text-sm gap-10 md:gap-14">
-                  <p>Real Developments</p>
-                  <p>October 10,2023</p>
-                  <p>Jane Smith</p>
+                  {data?.popularSection.spotLightPopular.subTitles.map(
+                    (subtitle) => (
+                      <p>{subtitle}</p>
+                    )
+                  )}
                 </div>
                 <h4 className=" text-lg md:text-3xl font-semibold">
-                  New Metro Line Expands City’s Transit Network
+                  {data?.popularSection.spotLightPopular.title}
                 </h4>
               </div>
             </div>
             <div className="col-span-1 md:row-span-3  grid grid-cols-1 md:grid-rows-3 gap-4  md:gap-8 ">
-              <div className="flex flex-col md:flex-row gap-6 md:row-span-1">
-                <img
-                  src={news2}
-                  className=" w-full  md:w-[110px] md:h-[110px]  lg:w-[220px] lg:h-[220px] object-cover"
-                />
-                <div className="flex flex-col gap-2 justify-between">
-                  <div className="flex flex-col lg:gap-2">
-                    <h4 className="text-lg lg:text-2xl font-semibold">
-                      Bus Lanes vs. Bike Lanes: Which One Does Your City Need?
-                    </h4>
-                    <p className="md:text-sm lg:text-base ">
-                      As cities grow, space becomes limited. What’s the right
-                      approach to urban mobility?
-                    </p>
-                  </div>
-                  <div className="">
-                    <Button variant="outline" className=" rounded-full">
-                      Read More
-                    </Button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col md:flex-row gap-6 md:row-span-1">
-                <img
-                  src={news3}
-                  className=" w-full md:w-[110px] md:h-[110px]  lg:w-[220px]  lg:h-[220px]  object-cover"
-                />
-                <div className="flex flex-col gap-2 justify-between">
-                  <div className="flex flex-col lg:gap-2">
-                    <h4 className="text-lg lg:text-2xl font-semibold">
-                      High-Speed Rail Project Faces Delays – What’s Next?
-                    </h4>
-                    <p className="md:text-sm lg:text-base ">
-                      Cost overruns and political debates continue to slow the
-                      nation's high-speed rail dreams.
-                    </p>
-                  </div>
-                  <div className="">
-                    <Button variant="outline" className=" rounded-full">
-                      Read More
-                    </Button>
+              {data?.popularSection.listItems.map((listItem) => (
+                <div className="flex flex-col md:flex-row gap-6 md:row-span-1">
+                  <img
+                    src={listItem.imageUrl}
+                    className=" w-full  md:w-[110px] md:h-[110px]  lg:w-[220px] lg:h-[220px] object-cover"
+                  />
+                  <div className="flex flex-col gap-2 justify-between">
+                    <div className="flex flex-col lg:gap-2">
+                      <h4 className="text-lg lg:text-2xl font-semibold">
+                        {listItem.title}
+                      </h4>
+                      <p className="md:text-sm lg:text-base ">
+                        {listItem.description}
+                      </p>
+                    </div>
+                    <div className="">
+                      <Button variant="outline" className=" rounded-full">
+                        Read More
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="flex flex-col md:flex-row gap-6 md:row-span-1">
-                <img
-                  src={news4}
-                  className=" w-full md:w-[110px] md:h-[110px]  lg:w-[220px] lg:h-[220px]  object-cover"
-                />
-                <div className="flex flex-col gap-2 justify-between">
-                  <div className="flex flex-col lg:gap-2">
-                    <h4 className="text-lg lg:text-2xl font-semibold">
-                      How Electric Buses Are Reducing City Emissions
-                    </h4>
-                    <p className="md:text-sm lg:text-base ">
-                      Transit agencies are adopting electric fleets—what does
-                      this mean for the environment?
-                    </p>
-                  </div>
-                  <div className="">
-                    <Button variant="outline" className=" rounded-full">
-                      Read More
-                    </Button>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

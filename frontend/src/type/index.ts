@@ -47,9 +47,26 @@ export interface Category {
   _id: string;
 }
 
+export interface SpotLightItem {
+  subTitles: string[];
+  title: string;
+  imageUrl: string;
+}
+export interface ListItem {
+  description: string[];
+  title: string;
+  imageUrl: string;
+}
+export interface PopularSectionType {
+  title: string;
+  spotLightPopular: SpotLightItem;
+  listItems: ListItem[];
+}
+
 export interface HomePageType {
   carousel: CarouselType[];
   hero: HeroSection;
   articleList: ArticleList[];
   categories: Category[];
+  popularSection: PopularSectionType;
 }
