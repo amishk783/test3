@@ -19,6 +19,17 @@ export interface PostType {
 
 export interface CarouselType {
   title: string;
-  image: string;
+  imageUrl: string;
   subTitles: string[];
+}
+
+export interface HeroSection {
+  title: string;
+  subHeading: string;
+  paragraph: string;
+}
+
+export interface HomePageType {
+  carousel: CarouselType[];
+  hero: HeroSection;
 }

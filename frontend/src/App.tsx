@@ -5,71 +5,50 @@ import { articles, categories } from "./constant";
 import { Button } from "./components/ui/button";
 import { FaChevronDown } from "react-icons/fa";
 import { ArticleCard } from "./components/article/ArticleCard";
-
-import slide1 from "./assets/carousel/slide1.png";
-import slide2 from "./assets/carousel/slide2.png";
-
 import news1 from "./assets/news/news_1.png";
 import news2 from "./assets/news/news_2.png";
 import news3 from "./assets/news/news_3.png";
 import news4 from "./assets/news/news_4.png";
-import { useEffect, useState } from "react";
-import { CarouselType } from "./type";
-import api from "./lib/api";
+
+import { useFetch } from "./hooks/useFetch";
+import { HomePageType } from "./type";
+import { Loader } from "lucide-react";
 
 function App() {
   const OPTIONS: EmblaOptionsType = { loop: true };
 
-  const SLIDES = [
-    {
-      imageSrc: slide1,
-      subtitles: ["Real Devlopments", "October 10,2023", "Jane Smith"],
-    },
-    {
-      imageSrc: slide2,
-      subtitles: ["Real Devlopments", "October 10,2023", "Jane Smith"],
-    },
-    {
-      imageSrc: slide2,
-      subtitles: ["Real Devlopments", "October 10,2023", "Jane Smith"],
-    },
-  ];
+  const { data, loading, error } = useFetch<HomePageType>("/pages/home");
+  console.log("🚀 ~ App ~ data:", data);
 
-  const [carousel, setCarousel] = useState<CarouselType[] | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    const fetchCarousel = async () => {
-      setIsLoading(true);
-      const res = await api.get(`carousel`);
+  if (loading)
+    return (
+      <div className=" w-full  h-[70vh] flex items-center justify-center">
+        <Loader size={60} className=" animate-spin" />;
+      </div>
+    );
 
-      const data: CarouselType[] = res.data;
-      console.log("🚀 ~ fetchPosts ~ data:", data);
-
-      setCarousel(data);
-      setIsLoading(false);
-    };
-
-    fetchCarousel();
-  }, []);
   return (
     <div className="w-full font-manrope py-2 md:px-10 lg:px-20">
       {/* hero-section */}
 
-      <div className="w-full justify-between px-4 flex flex-col lg:flex-row pb-10 sm:py-12 lg:items-center gap-4 lg:gap-16 ">
-        <div className="flex flex-col md:gap-1 lg:w-1/2 ">
-          <p className=" font-bold text-sm">Latest Transit News</p>
-          <h2 className="font-bold text-4xl md:text-6xl">Today's Headline:</h2>
-          <h2 className="font-bold text-4xl md:text-6xl">Stay Informed</h2>
+      {data && (
+        <div className="w-full justify-between px-4 flex flex-col lg:flex-row pb-10 sm:py-12 lg:items-center gap-4 lg:gap-16 ">
+          <div className="flex flex-col md:gap-1 lg:w-[40%] ">
+            <p className=" font-bold text-sm">{data?.hero.subHeading}</p>
+            <h2 className="font-bold text-4xl md:text-7xl leading-[4rem]">
+              {data?.hero.title}
+            </h2>
+          </div>
+          <p className=" text-base md:text-2xl text-black/70 lg:w-1/2 ">
+            {data?.hero.paragraph}
+          </p>
         </div>
-        <p className=" text-base md:text-2xl text-black/70 lg:w-1/2 ">
-          Explore the latest news from around the world. We bring you
-          up-to-the-minute updates on the most significant events, trends, and
-          stories.
-        </p>
-      </div>
+      )}
       {/* carousel */}
       <div className="w-full h-full px-2 md:px-10 relative">
-        {carousel && <EmblaCarousel slides={carousel} options={OPTIONS} />}
+        {data?.carousel && (
+          <EmblaCarousel slides={data.carousel} options={OPTIONS} />
+        )}
       </div>
       {/* news hub */}
       <div className="w-full h-full bg-secondary px-4 md:px-20 py-28 my-10 rounded-lg">
