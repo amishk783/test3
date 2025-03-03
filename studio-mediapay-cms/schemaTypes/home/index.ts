@@ -1,8 +1,8 @@
 import {defineField, defineType} from 'sanity'
 
-export const carouselType = defineType({
-  name: 'carousel',
-  title: 'Carousel',
+export const HomePageType = defineType({
+  name: 'homePage',
+  title: 'HomePage',
   type: 'document',
   fields: [
     defineField({
@@ -10,14 +10,18 @@ export const carouselType = defineType({
       type: 'string',
       validation: (rule) => rule.required(),
     }),
+
     defineField({
-      name: 'image',
-      type: 'image',
+      name: 'hero',
+      type: 'homeHero',
+      title: 'Hero section',
     }),
+
     defineField({
-      name: 'subTitles',
+      name: 'carousel',
       type: 'array',
-      of: [{type: 'string'}],
+      of: [{type: 'carousel'}],
+      title: 'Carousel',
     }),
   ],
 })
