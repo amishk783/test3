@@ -13,7 +13,6 @@ import news1 from "./assets/news/news_1.png";
 import news2 from "./assets/news/news_2.png";
 import news3 from "./assets/news/news_3.png";
 import news4 from "./assets/news/news_4.png";
-import { SubscriptionPopUp } from "./components/SubscriptionPopUp";
 
 function App() {
   const OPTIONS: EmblaOptionsType = { loop: true };
@@ -35,7 +34,7 @@ function App() {
   return (
     <div className="w-full font-manrope py-2 md:px-10 lg:px-20">
       {/* hero-section */}
-      <SubscriptionPopUp />
+
       <div className="w-full justify-between px-4 flex flex-col lg:flex-row pb-10 sm:py-12 lg:items-center gap-4 lg:gap-16 ">
         <div className="flex flex-col md:gap-1 lg:w-1/2 ">
           <p className=" font-bold text-sm">Latest Transit News</p>
