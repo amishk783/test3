@@ -28,8 +28,28 @@ export interface HeroSection {
   subHeading: string;
   paragraph: string;
 }
+export interface HeroSection {
+  title: string;
+  subHeading: string;
+  paragraph: string;
+}
+
+export interface ArticleList {
+  categoryId: string;
+  title: string;
+  date: string;
+  author: string;
+  description: string;
+  imageUrl: string;
+}
+export interface Category {
+  title: string;
+  _id: string;
+}
 
 export interface HomePageType {
   carousel: CarouselType[];
   hero: HeroSection;
+  articleList: ArticleList[];
+  categories: Category[];
 }

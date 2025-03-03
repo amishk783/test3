@@ -11,14 +11,51 @@ import news3 from "./assets/news/news_3.png";
 import news4 from "./assets/news/news_4.png";
 
 import { useFetch } from "./hooks/useFetch";
-import { HomePageType } from "./type";
+import { ArticleList, HomePageType } from "./type";
 import { Loader } from "lucide-react";
+import { useEffect, useState } from "react";
 
 function App() {
   const OPTIONS: EmblaOptionsType = { loop: true };
 
   const { data, loading, error } = useFetch<HomePageType>("/pages/home");
   console.log("🚀 ~ App ~ data:", data);
+
+  const [activeCategory, setActiveCategory] = useState("0");
+
+  const [articles, setArticles] = useState<ArticleList[] | null>(
+    data?.articleList || null
+  );
+
+  useEffect(() => {
+    if (data?.articleList) {
+      setArticles(data.articleList);
+    }
+  }, [data]);
+
+  const handleCategoryClick = (_id: string) => {
+    if (!data) return;
+
+    if (_id === "0") {
+      setActiveCategory(_id);
+      setArticles(data.articleList);
+      return;
+    }
+
+    setActiveCategory(_id);
+
+    console.log("🚀 ~ handleCategoryClick ~ _id:", _id);
+    const filteredArticles = data.articleList.filter(
+      (article) => article.categoryId === _id
+    );
+
+    console.log(
+      "🚀 ~ handleCategoryClick ~ filteredArticles:",
+      filteredArticles
+    );
+
+    setArticles(filteredArticles);
+  };
 
   if (loading)
     return (
@@ -58,17 +95,28 @@ function App() {
               Welcome to Our News Hub
             </h3>
             <div className="flex gap-3 py-3 2xl:w-[40%] flex-wrap">
-              {categories.map((category, index) => (
-                <Button
-                  key={index}
-                  variant={index === 0 ? "primary" : "outline"}
-                  className={`rounded-full md:px-8 font-medium ${
-                    index === 0 ? "   " : "text-black/60"
-                  }`}
-                >
-                  {category}
-                </Button>
-              ))}
+              <Button
+                onClick={() => handleCategoryClick("0")}
+                variant={activeCategory === "0" ? "primary" : "outline"}
+                className="rounded-full md:px-8 font-medium "
+              >
+                View all
+              </Button>
+              {data &&
+                data?.categories.map((category, index) => (
+                  <Button
+                    onClick={() => handleCategoryClick(category._id)}
+                    key={index}
+                    variant={
+                      activeCategory === category._id ? "primary" : "outline"
+                    }
+                    className={`rounded-full md:px-8 font-medium ${
+                      activeCategory === category._id ? "   " : "text-black/60"
+                    }`}
+                  >
+                    {category.title}
+                  </Button>
+                ))}
             </div>
           </div>
           <Button
@@ -80,9 +128,10 @@ function App() {
           </Button>
         </div>
         <div className=" grid  md:grid-cols-2 lg:grid-cols-3 w-full py-14 gap-4 md:gap-10 ">
-          {articles.map((article, index) => (
-            <ArticleCard key={index} {...article} />
-          ))}
+          {articles &&
+            articles.map((article, index) => (
+              <ArticleCard key={index} {...article} />
+            ))}
         </div>
         <div className="flex items-center w-full justify-center">
           <Button className=" rounded-full px-8 " variant="primary">

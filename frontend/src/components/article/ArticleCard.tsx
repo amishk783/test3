@@ -1,24 +1,21 @@
-interface Props {
-  title: string;
-  description: string;
-  date: string;
-  author: string;
-  image: string;
-}
+import { ArticleList } from "@/type";
+import { format } from "date-fns";
 
-export const ArticleCard: React.FC<Props> = ({
+export const ArticleCard: React.FC<ArticleList> = ({
   title,
   description,
   date,
   author,
-  image,
+  imageUrl,
 }) => {
+  const formattedDate = format(date, "MMMM d, yyyy");
+
   return (
     <div className=" w-full flex flex-col gap-4 bg-white rounded-xl overflow-hidden">
-      <img src={image} className="w-full" />
+      <img src={imageUrl} className="w-full" />
       <div className="w-full flex flex-col gap-4 p-4">
         <div className="flex justify-between text-black/70">
-          <p>{date}</p>
+          <p>{formattedDate}</p>
           <p>{author}</p>
         </div>
         <div className="flex flex-col gap-2">
