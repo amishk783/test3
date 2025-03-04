@@ -11,6 +11,7 @@ import { SocialLinks } from "@/components/common/SocialLinks";
 import { PostType } from "@/type";
 import { Button } from "@/components/ui/button";
 import { useFetch } from "@/hooks/useFetch";
+import { useEffect, useState } from "react";
 
 export const Article = () => {
   const { id: articleId } = useParams();
@@ -18,6 +19,8 @@ export const Article = () => {
   const { data: post, loading } = useFetch<PostType | null>(
     `posts/${articleId}`
   );
+
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const subHeadings =
     post &&
@@ -30,7 +33,35 @@ export const Article = () => {
       }
       return acc;
     }, []);
+  useEffect(() => {
+    const contentDiv = document.getElementById("content-container");
+    if (!contentDiv || subHeadings?.length === 0) return;
 
+    const headings = contentDiv.querySelectorAll("h2, h3");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+
+            const index = subHeadings?.findIndex((heading) => {
+              const slug = heading
+                .toLowerCase()
+                .replace(/\s+/g, "-")
+                .replace(/[^\w-]/g, "");
+              return slug === id;
+            });
+            if (index !== -1) setActiveIndex(index!);
+          }
+        });
+      },
+      { rootMargin: "-50% 0px -50% 0px", threshold: 0 }
+    );
+
+    headings.forEach((heading) => observer.observe(heading));
+    return () => observer.disconnect();
+  }, [subHeadings]);
 
   if (loading || !post)
     return (
@@ -98,22 +129,31 @@ export const Article = () => {
           <div className="flex flex-col gap-6 ">
             {subHeadings &&
               subHeadings.map((heading, index) => (
-                <p
+                <button
                   key={index}
+                  onClick={() => {
+                    const slug = heading
+                      .toLowerCase()
+                      .replace(/\s+/g, "-")
+                      .replace(/[^\w-]/g, "");
+                    const element = document.getElementById(slug);
+
+                    element?.scrollIntoView({
+                      behavior: "smooth",
+                      block: "center",
+                    });
+                  }}
                   className={cn(
-                    "flex items-center gap-2 ",
-                    index === 0 ? "font-semibold" : "text-black/40 font-medium"
+                    "flex items-center justify-start w-full gap-2 cursor-pointer hover:text-black/80 transition-colors",
+                    index === activeIndex
+                      ? "font-semibold text-black/70"
+                      : "text-black/40 font-medium"
                   )}
                 >
-                  {index === 0 && (
-                    <span>
-                      <ChevronRight size={16} />
-                    </span>
-                  )}{" "}
-                  {heading}
-                </p>
+                  {index === activeIndex && <ChevronRight size={16} />}
+                  <p className=" text-start">{heading}</p>
+                </button>
               ))}
-           
           </div>
         </div>
       </div>

@@ -44,6 +44,11 @@ export const postType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'tags',
+      type: 'array',
+      of: [{type: 'string'}],
+    }),
+    defineField({
       name: 'category',
       type: 'reference',
       to: [{type: 'category'}],

@@ -13,6 +13,7 @@ export interface PostType {
     current: string;
     _type: string;
   };
+  tags: string[];
   body: SanityBlock[];
   category: string;
 }

@@ -2,6 +2,7 @@ import { SanityBlock } from "@/type";
 import { PortableTextComponents } from "@portabletext/react";
 
 import { PortableText } from "@portabletext/react";
+import React from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const urlForImage = (source: any) => {
@@ -20,17 +21,38 @@ interface Props {
 const PortableTextComponent: React.FC<Props> = ({ content }) => {
   const components: PortableTextComponents = {
     block: {
-      h2: ({ children }) => (
-        <h2 className="text-4xl md:text-6xl font-bold mt-4 pb-4">{children}</h2>
-      ),
-      h3: ({ children }) => (
-        <h3 className="text-xl md:text-3xl font-semibold mt-12 pb-2 ">
-          {children}
-        </h3>
-      ),
+      h3: ({ children }) => {
+        const text = React.Children.toArray(children).join("");
+        const slug = text
+          .toLowerCase()
+          .replace(/\s+/g, "-")
+          .replace(/[^\w-]/g, "");
+        return (
+          <h3
+            id={slug}
+            className="text-xl md:text-3xl font-semibold mt-12 pb-2"
+          >
+            {children}
+          </h3>
+        );
+      },
       normal: ({ children }) => (
         <p className="text-lg mt-2 text-black/70">{children}</p>
       ),
+      h2: ({ children }) => {
+        const text = extractText(children);
+
+        const slug = text
+          .toLowerCase()
+          .replace(/\s+/g, "-")
+          .replace(/[^\w-]/g, "");
+
+        return (
+          <h2 id={slug} className="text-4xl md:text-6xl font-bold mt-4 pb-4">
+            {children}
+          </h2>
+        );
+      },
     },
     list: {
       bullet: ({ children }) => (
@@ -53,9 +75,25 @@ const PortableTextComponent: React.FC<Props> = ({ content }) => {
         </div>
       ),
     },
+    marks: {},
   };
 
   return <PortableText value={content} components={components} />;
 };
 
 export default PortableTextComponent;
+
+const extractText = (children: React.ReactNode): string => {
+  if (!children) return "";
+  if (typeof children === "string") return children;
+
+  if (Array.isArray(children)) {
+    return children.map(extractText).join("");
+  }
+
+  if (React.isValidElement<{ children?: React.ReactNode }>(children)) {
+    return extractText(children.props.children);
+  }
+
+  return "";
+};
