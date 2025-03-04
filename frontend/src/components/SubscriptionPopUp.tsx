@@ -10,9 +10,9 @@ export const SubscriptionPopUp = () => {
             Get access to this article
           </h2>
 
-          <div className=" relative flex flex-col gap-6 w-full border-2 border-black/30 p-8 rounded-2xl">
+          <div className=" relative flex flex-col gap-6 w-full border border-black/30 p-8 rounded-2xl">
             <div className=" absolute flex items-center justify-center left-[40%] -top-4 w-20 h-8 bg-green-800 rounded-full text-white">
-              Montly
+              Monthly
             </div>
             <div className="flex justify-between items-center ">
               <div>
@@ -30,7 +30,7 @@ export const SubscriptionPopUp = () => {
               Start Free Trial & Upgrade
             </Button>
           </div>
-          <div className=" relative flex flex-col gap-6 w-full border-2 border-black/30 p-8 rounded-2xl">
+          <div className=" relative flex flex-col gap-6 w-full border border-black/30 p-8 rounded-2xl">
             <div className="flex justify-between items-center">
               <div>
                 <p className="font-bold">Unlock Now</p>

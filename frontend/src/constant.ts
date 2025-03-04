@@ -7,6 +7,13 @@ export const categories: string[] = [
   "Policy & Advocacy",
 ];
 
+import articl1 from "@/assets/articles/article_1.png";
+import articl2 from "@/assets/articles/article_2.png";
+import articl3 from "@/assets/articles/article_3.png";
+import articl4 from "@/assets/articles/article_4.png";
+import articl5 from "@/assets/articles/article_5.png";
+import articl6 from "@/assets/articles/article_6.png";
+
 export const articles: {
   title: string;
   description: string;
@@ -20,7 +27,7 @@ export const articles: {
       "Practical advice for maximizing your daily commute without breaking the bank.",
     date: "October 10, 2023",
     author: "Jane Smith",
-    image: "/src/assets/articles/article_1.png",
+    image: articl1,
   },
   {
     title: "The Rise of On-Demand Public Transport Services",
@@ -28,7 +35,7 @@ export const articles: {
       "Microtransit services are reshaping how we move—are they the future of public transit?",
     date: "October 10, 2023",
     author: "Jane Smith",
-    image: "/src/assets/articles/article_2.png",
+    image: articl2,
   },
   {
     title: "Why Some Cities Are Abandoning Streetcars",
@@ -36,7 +43,7 @@ export const articles: {
       "Once seen as a transit revival, some streetcar projects are now being scrapped. Here’s why.",
     date: "October 10, 2023",
     author: "Jane Smith",
-    image: "/src/assets/articles/article_3.png",
+    image: articl3,
   },
   {
     title: "Why Some Cities Are Abandoning Streetcars",
@@ -44,7 +51,7 @@ export const articles: {
       "Once seen as a transit revival, some streetcar projects are now being scrapped. Here’s why.",
     date: "October 10, 2023",
     author: "Jane Smith",
-    image: "/src/assets/articles/article_4.png",
+    image: articl4,
   },
   {
     title: "The Rise of On-Demand Public Transport Services",
@@ -52,7 +59,7 @@ export const articles: {
       "Microtransit services are reshaping how we move—are they the future of public transit?",
     date: "October 10, 2023",
     author: "Jane Smith",
-    image: "/src/assets/articles/article_5.png",
+    image: articl5,
   },
   {
     title: "Commuter Tips: How to Save Time and Money on Public Transit",
@@ -60,6 +67,6 @@ export const articles: {
       "Practical advice for maximizing your daily commute without breaking the bank.",
     date: "October 10, 2023",
     author: "Jane Smith",
-    image: "/src/assets/articles/article_6.png",
+    image: articl6,
   },
 ];

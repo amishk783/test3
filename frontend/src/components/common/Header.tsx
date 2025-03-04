@@ -8,15 +8,16 @@ import { Avatar, AvatarImage } from "../ui/avatar";
 import { RxHamburgerMenu } from "react-icons/rx";
 
 import profileImage from "@/assets/avatar_demo.jpeg";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
   const [isUser, setUser] = useState(false);
-  console.log("🚀 ~ Header ~ setUser:", setUser)
+  console.log("🚀 ~ Header ~ setUser:", setUser);
   return (
     <div className="w-full font-manrope h-min flex items-center justify-between px-4 sm:px-8 py-4 my-4">
-      <div className="w-36 h-10">
+      <Link to="/" className="w-36 h-10">
         <img src="/logo.png" className=" w-full h-full aspect-square " />
-      </div>
+      </Link>
       <div className="md:flex gap-4 items-center  ">
         <Button variant="ghost" className="text-base hidden md:flex">
           <p className=" text-black/70">Categories</p>
@@ -31,15 +32,19 @@ export const Header = () => {
         </div>
         {!isUser && (
           <div className=" hidden lg:flex gap-4">
-            <Button
-              variant="outline"
-              className="border-black text-base rounded-full "
-            >
-              Login
-            </Button>
-            <Button variant="primary" className=" rounded-full text-lg px-8 ">
-              Subscribe
-            </Button>
+            <Link to="/login">
+              <Button
+                variant="outline"
+                className="border-black text-base rounded-full "
+              >
+                Login
+              </Button>
+            </Link>
+            <Link to="/signup">
+              <Button variant="primary" className=" rounded-full text-lg px-8 ">
+                Subscribe
+              </Button>
+            </Link>
           </div>
         )}
         {isUser && (

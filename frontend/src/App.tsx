@@ -6,16 +6,35 @@ import { Button } from "./components/ui/button";
 import { FaChevronDown } from "react-icons/fa";
 import { ArticleCard } from "./components/article/ArticleCard";
 
+import slide1 from "./assets/carousel/slide1.png";
+import slide2 from "./assets/carousel/slide2.png";
+
+import news1 from "./assets/news/news_1.png";
+import news2 from "./assets/news/news_2.png";
+import news3 from "./assets/news/news_3.png";
+import news4 from "./assets/news/news_4.png";
+
 function App() {
   const OPTIONS: EmblaOptionsType = { loop: true };
+
   const SLIDES = [
-    "./src/assets/carousel/slide1.png",
-    "./src/assets/carousel/slide_2.png",
-    "./src/assets/carousel/slide_2.png",
+    {
+      imageSrc: slide1,
+      subtitles: ["Real Devlopments", "October 10,2023", "Jane Smith"],
+    },
+    {
+      imageSrc: slide2,
+      subtitles: ["Real Devlopments", "October 10,2023", "Jane Smith"],
+    },
+    {
+      imageSrc: slide2,
+      subtitles: ["Real Devlopments", "October 10,2023", "Jane Smith"],
+    },
   ];
   return (
     <div className="w-full font-manrope py-2 md:px-10 lg:px-20">
       {/* hero-section */}
+
       <div className="w-full justify-between px-4 flex flex-col lg:flex-row pb-10 sm:py-12 lg:items-center gap-4 lg:gap-16 ">
         <div className="flex flex-col md:gap-1 lg:w-1/2 ">
           <p className=" font-bold text-sm">Latest Transit News</p>
@@ -42,8 +61,11 @@ function App() {
             <div className="flex gap-3 py-3 2xl:w-[40%] flex-wrap">
               {categories.map((category, index) => (
                 <Button
+                  key={index}
                   variant={index === 0 ? "primary" : "outline"}
-                  className=" rounded-full md:px-8"
+                  className={`rounded-full md:px-8 font-medium ${
+                    index === 0 ? "   " : "text-black/60"
+                  }`}
                 >
                   {category}
                 </Button>
@@ -51,7 +73,7 @@ function App() {
             </div>
           </div>
           <Button
-            className=" self-end lg:self-center rounded-full px-8 gap-2"
+            className=" self-end lg:self-center rounded-full px-8 gap-2  font-medium  text-black/60"
             variant="outline"
           >
             Sort By
@@ -75,10 +97,7 @@ function App() {
           <h4 className="text-4xl md:text-5xl font-bold">Popular News</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-3 py-5 w-full  2xl:w-5/6 gap-5 md:h-[700px] ">
             <div className="col-span-1 md:row-span-3 w-full">
-              <img
-                className="  md:w-full object-cover"
-                src="/src/assets/news/news_1.png"
-              />
+              <img className="  md:w-full object-cover" src={news1} />
               <div className="flex flex-col gap-4 pt-4">
                 <div className="flex text-sm gap-10 md:gap-14">
                   <p>Real Developments</p>
@@ -93,7 +112,7 @@ function App() {
             <div className="col-span-1 md:row-span-3  grid grid-cols-1 md:grid-rows-3 gap-4  md:gap-8 ">
               <div className="flex flex-col md:flex-row gap-6 md:row-span-1">
                 <img
-                  src="/src/assets/news/news_2.png"
+                  src={news2}
                   className=" w-full  md:w-[110px] md:h-[110px]  lg:w-[220px] lg:h-[220px] object-cover"
                 />
                 <div className="flex flex-col gap-2 justify-between">
@@ -116,7 +135,7 @@ function App() {
 
               <div className="flex flex-col md:flex-row gap-6 md:row-span-1">
                 <img
-                  src="/src/assets/news/news_3.png"
+                  src={news3}
                   className=" w-full md:w-[110px] md:h-[110px]  lg:w-[220px]  lg:h-[220px]  object-cover"
                 />
                 <div className="flex flex-col gap-2 justify-between">
@@ -138,7 +157,7 @@ function App() {
               </div>
               <div className="flex flex-col md:flex-row gap-6 md:row-span-1">
                 <img
-                  src="/src/assets/news/news_4.png"
+                  src={news4}
                   className=" w-full md:w-[110px] md:h-[110px]  lg:w-[220px] lg:h-[220px]  object-cover"
                 />
                 <div className="flex flex-col gap-2 justify-between">

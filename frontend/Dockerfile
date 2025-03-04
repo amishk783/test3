@@ -14,4 +14,14 @@ RUN npm ci
 
 COPY --chown=app:app . .
 
-CMD ["npm","run","dev"]
+ENV GENERATE_SOURCEMAP=false
+
+RUN NODE_OPTIONS="--max-old-space-size=8192" npm run build
+
+# production environment
+FROM nginx:alpine
+COPY --from=build /home/app/frontend/dist /usr/share/nginx/html
+
+COPY --from=build /home/app/frontend/nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

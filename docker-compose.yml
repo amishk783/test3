@@ -20,7 +20,7 @@ services:
     image: transitlyregistry.azurecr.io/transitly-frontend:latest
     container_name: transitly-frontend
     ports:
-      - "5173:5173"
+      - "5173:80"
     depends_on:
       - backend
     volumes:

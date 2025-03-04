@@ -1,10 +1,13 @@
+import { Link } from "react-router-dom";
+import { SocialLinks } from "./SocialLinks";
+
 export const Footer = () => {
   return (
-    <div className="w-full h-min font-manrope px-4 md:px-10 lg:px-20 bg-secondary">
+    <div className="w-full h-min font-manrope px-4 md:px-10 lg:px-20 bg-secondary ">
       <div className="w-full py-10 border-b flex flex-col gap-8  md:flex-row justify-between border-black/30">
-        <div className="w-36 h-10">
+        <Link to="/" className="w-36 h-10">
           <img src="/logo.png" className=" w-full h-full aspect-square " />
-        </div>
+        </Link>
         <div className="flex gap-10 md:gap-20 md:px-24">
           <div className="flex flex-col gap-5">
             <h5 className=" font-semibold text-xl">Categories</h5>
@@ -27,12 +30,12 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-between pt-12">
+      <div className="flex flex-col gap-4 items-center md:flex-row justify-between pt-12">
         <div className="flex flex-col items-center md:flex-row  gap-5 text-black/70">
           <p>© 2025 Transitly. All rights reserved.</p>
           <p className="underline">Cookies Settings</p>
         </div>
-        <div></div>
+        <SocialLinks />
       </div>
       <div className="flex flex-col py-10 md:text-lg gap-5 text-black/70">
         <p>
