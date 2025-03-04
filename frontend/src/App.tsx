@@ -1,26 +1,20 @@
 import { EmblaOptionsType } from "embla-carousel";
 import EmblaCarousel from "./components/carousel/EmblaCarousel";
 import "@/components/carousel/embla.css";
-import { articles, categories } from "./constant";
+
 import { Button } from "./components/ui/button";
 import { FaChevronDown } from "react-icons/fa";
 import { ArticleCard } from "./components/article/ArticleCard";
-import news1 from "./assets/news/news_1.png";
-import news2 from "./assets/news/news_2.png";
-import news3 from "./assets/news/news_3.png";
-import news4 from "./assets/news/news_4.png";
 
 import { useFetch } from "./hooks/useFetch";
 import { ArticleList, HomePageType } from "./type";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
-import { subtle } from "crypto";
 
 function App() {
   const OPTIONS: EmblaOptionsType = { loop: true };
 
-  const { data, loading, error } = useFetch<HomePageType>("/pages/home");
-  console.log("🚀 ~ App ~ data:", data);
+  const { data, loading } = useFetch<HomePageType>("/pages/home");
 
   const [activeCategory, setActiveCategory] = useState("0");
 
@@ -45,7 +39,6 @@ function App() {
 
     setActiveCategory(_id);
 
-    console.log("🚀 ~ handleCategoryClick ~ _id:", _id);
     const filteredArticles = data.articleList.filter(
       (article) => article.categoryId === _id
     );
