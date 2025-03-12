@@ -1,55 +1,80 @@
 import { EmblaOptionsType } from "embla-carousel";
 import EmblaCarousel from "./components/carousel/EmblaCarousel";
 import "@/components/carousel/embla.css";
-import { articles, categories } from "./constant";
+
 import { Button } from "./components/ui/button";
 import { FaChevronDown } from "react-icons/fa";
 import { ArticleCard } from "./components/article/ArticleCard";
 
-import slide1 from "./assets/carousel/slide1.png";
-import slide2 from "./assets/carousel/slide2.png";
-
-import news1 from "./assets/news/news_1.png";
-import news2 from "./assets/news/news_2.png";
-import news3 from "./assets/news/news_3.png";
-import news4 from "./assets/news/news_4.png";
+import { useFetch } from "./hooks/useFetch";
+import { ArticleList, HomePageType } from "./type";
+import { Loader } from "lucide-react";
+import { useEffect, useState } from "react";
 
 function App() {
   const OPTIONS: EmblaOptionsType = { loop: true };
 
-  const SLIDES = [
-    {
-      imageSrc: slide1,
-      subtitles: ["Real Devlopments", "October 10,2023", "Jane Smith"],
-    },
-    {
-      imageSrc: slide2,
-      subtitles: ["Real Devlopments", "October 10,2023", "Jane Smith"],
-    },
-    {
-      imageSrc: slide2,
-      subtitles: ["Real Devlopments", "October 10,2023", "Jane Smith"],
-    },
-  ];
+  const { data, loading } = useFetch<HomePageType>("/pages/home");
+
+  const [activeCategory, setActiveCategory] = useState("0");
+
+  const [articles, setArticles] = useState<ArticleList[] | null>(
+    data?.articleList || null
+  );
+
+  useEffect(() => {
+    if (data?.articleList) {
+      setArticles(data.articleList);
+    }
+  }, [data]);
+
+  const handleCategoryClick = (_id: string) => {
+    if (!data) return;
+
+    if (_id === "0") {
+      setActiveCategory(_id);
+      setArticles(data.articleList);
+      return;
+    }
+
+    setActiveCategory(_id);
+
+    const filteredArticles = data.articleList.filter(
+      (article) => article.categoryId === _id
+    );
+
+    setArticles(filteredArticles);
+  };
+
+  if (loading)
+    return (
+      <div className=" w-full  h-[70vh] flex items-center justify-center">
+        <Loader size={60} className=" animate-spin" />;
+      </div>
+    );
+
   return (
     <div className="w-full font-manrope py-2 md:px-10 lg:px-20">
       {/* hero-section */}
 
-      <div className="w-full justify-between px-4 flex flex-col lg:flex-row pb-10 sm:py-12 lg:items-center gap-4 lg:gap-16 ">
-        <div className="flex flex-col md:gap-1 lg:w-1/2 ">
-          <p className=" font-bold text-sm">Latest Transit News</p>
-          <h2 className="font-bold text-4xl md:text-6xl">Today's Headline:</h2>
-          <h2 className="font-bold text-4xl md:text-6xl">Stay Informed</h2>
+      {data && (
+        <div className="w-full justify-between px-4 flex flex-col lg:flex-row pb-10 sm:py-12 lg:items-center gap-4 lg:gap-16 ">
+          <div className="flex flex-col md:gap-1 lg:w-[40%] ">
+            <p className=" font-bold text-sm">{data?.hero.subHeading}</p>
+            <h2 className="font-bold text-4xl md:text-7xl leading-[4rem]">
+              {data?.hero.title}
+            </h2>
+          </div>
+          <p className=" text-base md:text-2xl text-black/70 lg:w-1/2 ">
+            {data?.hero.paragraph}
+          </p>
         </div>
-        <p className=" text-base md:text-2xl text-black/70 lg:w-1/2 ">
-          Explore the latest news from around the world. We bring you
-          up-to-the-minute updates on the most significant events, trends, and
-          stories.
-        </p>
-      </div>
+      )}
       {/* carousel */}
       <div className="w-full h-full px-2 md:px-10 relative">
-        <EmblaCarousel slides={SLIDES} options={OPTIONS} />
+        {data?.carousel && (
+          <EmblaCarousel slides={data.carousel} options={OPTIONS} />
+        )}
       </div>
       {/* news hub */}
       <div className="w-full h-full bg-secondary px-4 md:px-20 py-28 my-10 rounded-lg">
@@ -59,17 +84,28 @@ function App() {
               Welcome to Our News Hub
             </h3>
             <div className="flex gap-3 py-3 2xl:w-[40%] flex-wrap">
-              {categories.map((category, index) => (
-                <Button
-                  key={index}
-                  variant={index === 0 ? "primary" : "outline"}
-                  className={`rounded-full md:px-8 font-medium ${
-                    index === 0 ? "   " : "text-black/60"
-                  }`}
-                >
-                  {category}
-                </Button>
-              ))}
+              <Button
+                onClick={() => handleCategoryClick("0")}
+                variant={activeCategory === "0" ? "primary" : "outline"}
+                className="rounded-full md:px-8 font-medium "
+              >
+                View all
+              </Button>
+              {data &&
+                data?.categories.map((category, index) => (
+                  <Button
+                    onClick={() => handleCategoryClick(category._id)}
+                    key={index}
+                    variant={
+                      activeCategory === category._id ? "primary" : "outline"
+                    }
+                    className={`rounded-full md:px-8 font-medium ${
+                      activeCategory === category._id ? "   " : "text-black/60"
+                    }`}
+                  >
+                    {category.title}
+                  </Button>
+                ))}
             </div>
           </div>
           <Button
@@ -81,9 +117,15 @@ function App() {
           </Button>
         </div>
         <div className=" grid  md:grid-cols-2 lg:grid-cols-3 w-full py-14 gap-4 md:gap-10 ">
-          {articles.map((article, index) => (
-            <ArticleCard key={index} {...article} />
-          ))}
+          {articles?.length === 0 && (
+            <p className=" text-xl text-center py-5 ">
+              No article found for this category.
+            </p>
+          )}
+          {articles &&
+            articles.map((article, index) => (
+              <ArticleCard key={index} {...article} />
+            ))}
         </div>
         <div className="flex items-center w-full justify-center">
           <Button className=" rounded-full px-8 " variant="primary">
@@ -94,89 +136,52 @@ function App() {
       {/* popular news */}
       <div className="w-full h-full py-10 2xl:px-20 md:py-40 md:my-10 rounded-lg max-sm:px-4">
         <div className="flex flex-col gap-10 md:gap-20 w-full items-center justify-center">
-          <h4 className="text-4xl md:text-5xl font-bold">Popular News</h4>
+          <h4 className="text-4xl md:text-5xl font-bold">
+            {data?.popularSection.title}
+          </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-3 py-5 w-full  2xl:w-5/6 gap-5 md:h-[700px] ">
             <div className="col-span-1 md:row-span-3 w-full">
-              <img className="  md:w-full object-cover" src={news1} />
+              <img
+                className="  md:w-full object-cover"
+                src={data?.popularSection.spotLightPopular.imageUrl}
+              />
               <div className="flex flex-col gap-4 pt-4">
                 <div className="flex text-sm gap-10 md:gap-14">
-                  <p>Real Developments</p>
-                  <p>October 10,2023</p>
-                  <p>Jane Smith</p>
+                  {data?.popularSection.spotLightPopular.subTitles.map(
+                    (subtitle) => (
+                      <p>{subtitle}</p>
+                    )
+                  )}
                 </div>
                 <h4 className=" text-lg md:text-3xl font-semibold">
-                  New Metro Line Expands City’s Transit Network
+                  {data?.popularSection.spotLightPopular.title}
                 </h4>
               </div>
             </div>
             <div className="col-span-1 md:row-span-3  grid grid-cols-1 md:grid-rows-3 gap-4  md:gap-8 ">
-              <div className="flex flex-col md:flex-row gap-6 md:row-span-1">
-                <img
-                  src={news2}
-                  className=" w-full  md:w-[110px] md:h-[110px]  lg:w-[220px] lg:h-[220px] object-cover"
-                />
-                <div className="flex flex-col gap-2 justify-between">
-                  <div className="flex flex-col lg:gap-2">
-                    <h4 className="text-lg lg:text-2xl font-semibold">
-                      Bus Lanes vs. Bike Lanes: Which One Does Your City Need?
-                    </h4>
-                    <p className="md:text-sm lg:text-base ">
-                      As cities grow, space becomes limited. What’s the right
-                      approach to urban mobility?
-                    </p>
-                  </div>
-                  <div className="">
-                    <Button variant="outline" className=" rounded-full">
-                      Read More
-                    </Button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col md:flex-row gap-6 md:row-span-1">
-                <img
-                  src={news3}
-                  className=" w-full md:w-[110px] md:h-[110px]  lg:w-[220px]  lg:h-[220px]  object-cover"
-                />
-                <div className="flex flex-col gap-2 justify-between">
-                  <div className="flex flex-col lg:gap-2">
-                    <h4 className="text-lg lg:text-2xl font-semibold">
-                      High-Speed Rail Project Faces Delays – What’s Next?
-                    </h4>
-                    <p className="md:text-sm lg:text-base ">
-                      Cost overruns and political debates continue to slow the
-                      nation's high-speed rail dreams.
-                    </p>
-                  </div>
-                  <div className="">
-                    <Button variant="outline" className=" rounded-full">
-                      Read More
-                    </Button>
+              {data?.popularSection.listItems.map((listItem) => (
+                <div className="flex flex-col md:flex-row gap-6 md:row-span-1">
+                  <img
+                    src={listItem.imageUrl}
+                    className=" w-full  md:w-[110px] md:h-[110px]  lg:w-[220px] lg:h-[220px] object-cover"
+                  />
+                  <div className="flex flex-col gap-2 justify-between">
+                    <div className="flex flex-col lg:gap-2">
+                      <h4 className="text-lg lg:text-2xl font-semibold">
+                        {listItem.title}
+                      </h4>
+                      <p className="md:text-sm lg:text-base ">
+                        {listItem.description}
+                      </p>
+                    </div>
+                    <div className="">
+                      <Button variant="outline" className=" rounded-full">
+                        Read More
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="flex flex-col md:flex-row gap-6 md:row-span-1">
-                <img
-                  src={news4}
-                  className=" w-full md:w-[110px] md:h-[110px]  lg:w-[220px] lg:h-[220px]  object-cover"
-                />
-                <div className="flex flex-col gap-2 justify-between">
-                  <div className="flex flex-col lg:gap-2">
-                    <h4 className="text-lg lg:text-2xl font-semibold">
-                      How Electric Buses Are Reducing City Emissions
-                    </h4>
-                    <p className="md:text-sm lg:text-base ">
-                      Transit agencies are adopting electric fleets—what does
-                      this mean for the environment?
-                    </p>
-                  </div>
-                  <div className="">
-                    <Button variant="outline" className=" rounded-full">
-                      Read More
-                    </Button>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

@@ -4,9 +4,10 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 
 import { cn } from "@/lib/utils";
+import { CarouselType } from "@/type";
 
 type PropType = {
-  slides: { imageSrc: string; subtitles: string[] }[];
+  slides: CarouselType[];
   options?: EmblaOptionsType;
 };
 
@@ -33,22 +34,31 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           {slides.map((slide, index) => (
-            <div key={`${index + slide.imageSrc}`} className="embla__slide  ">
+            <div
+              key={`${index + slide.imageUrl + slide.title}`}
+              className="embla__slide  "
+            >
               <div className="embla__slide__number">
-                <img className="w-full h-full " src={slide.imageSrc} />
+                <img className="w-full h-full " src={slide.imageUrl} />
               </div>
-              <div className=" absolute bottom-8 flex gap-12 left-14">
-                {slide.subtitles.map((subtitle, index) => (
-                  <div
-                    key={index + subtitle}
-                    className="flex items-center gap-8 text-white/70"
-                  >
-                    <p>{subtitle}</p>
-                    {index !== slidesLength - 1 && (
-                      <div className="w-[1px] h-4 bg-white"></div>
-                    )}
-                  </div>
-                ))}
+
+              <div className="absolute  bottom-8 flex flex-col gap-4 left-14">
+                <h2 className="text-6xl w-[60%] text-wrap font-bold text-white">
+                  {slide.title}
+                </h2>
+                <div className=" flex gap-12">
+                  {slide.subTitles.map((subtitle, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center gap-8 text-white/70"
+                    >
+                      <p>{subtitle}</p>
+                      {index !== slidesLength  && (
+                        <div className="w-[1px] h-4 bg-white"></div>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           ))}

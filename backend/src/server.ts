@@ -1,8 +1,9 @@
 import express, { Request, Response } from "express";
 import morgan from "morgan";
-import { getPosts } from "./cms/post";
 import cors from "cors";
 import { postRouter } from "./routes/post";
+import { homeRouter } from "./routes";
+
 const app = express();
 const PORT = 5005;
 
@@ -18,6 +19,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Hello, Express with TypeScript!");
 });
 
+app.use("/", homeRouter);
 app.use("/posts", postRouter);
 
 app.listen(PORT, () => {
