@@ -37,5 +37,7 @@ services:
     container_name: transitly-backend
     ports:
       - "5005:5005"
+    env_file:
+      - ./backend/.env
     volumes:
       - /home/app/backend/node_modules

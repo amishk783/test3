@@ -20,6 +20,15 @@ Before you begin, ensure you have the following installed:
     cd mediapay
 ```
 
+### 2. **Copy .env.example and Create .env File**
+
+Go to the backend directory and create a .env file by copying .env.example:
+
+```bash
+   mv .env.example .env
+
+```
+
 ### 2. **Build and Run with Docker**
 
 ```bash
