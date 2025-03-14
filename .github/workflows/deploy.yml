@@ -39,4 +39,4 @@ jobs:
         run: |
           az containerapp update --name transitly-backend \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --image ${{ secrets.ACR_NAME }}.azurecr.io/transitly-backend:latest
+            --image ${{ secrets.ACR_NAME }}.azurecr.io/transitly-backend:latest \ --set-env-vars SANITY_PROJECT_ID=${{ secrets.SANITY_PROJECT_ID }}
