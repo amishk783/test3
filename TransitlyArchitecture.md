@@ -1,4 +1,4 @@
-# MediaPay Architecture Overview
+# Transitly Architecture Overview
 
 This document provides a high-level overview of how the Frontend, Backend, and CMS components work together in the Transitly platform.
 
