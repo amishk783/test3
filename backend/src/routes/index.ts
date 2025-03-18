@@ -1,3 +1,4 @@
+import authenticateToken from "../middleware/authenticateToken";
 import { getHomePage } from "../cms";
 import { Router } from "express";
 

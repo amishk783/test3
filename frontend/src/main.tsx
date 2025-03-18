@@ -1,9 +1,11 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import "./index.css";
 import App from "./App.tsx";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Signup from "./pages/Signup.tsx";
 import Login from "./pages/Login.tsx";
 
@@ -12,6 +14,10 @@ import Contact from "./pages/Contact.tsx";
 import Settings from "./pages/Settings/index.tsx";
 import { Article } from "./pages/Article/index.tsx";
 import { NotFound } from "./pages/NotFound.tsx";
+import { MsalProvider } from "@azure/msal-react";
+import { PublicClientApplication } from "@azure/msal-browser";
+import { msalConfig } from "./lib/authConfig.ts";
+import { ProtectedRoutes } from "./lib/ProtectedRoutes.tsx";
 
 const router = createBrowserRouter([
   {
@@ -19,11 +25,15 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <App /> },
-
-      { path: "settings", element: <Settings /> },
       { path: "contactus", element: <Contact /> },
-      { path: "articles/:id", element: <Article /> },
       { path: "*", element: <NotFound /> },
+      {
+        element: <ProtectedRoutes />,
+        children: [
+          { path: "settings", element: <Settings /> },
+          { path: "articles/:id", element: <Article /> },
+        ],
+      },
     ],
   },
   {
@@ -35,9 +45,12 @@ const router = createBrowserRouter([
     element: <Login />,
   },
 ]);
-
+export const msalInstance = new PublicClientApplication(msalConfig);
+await msalInstance.initialize();
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <MsalProvider instance={msalInstance}>
+      <RouterProvider router={router}></RouterProvider>
+    </MsalProvider>
   </StrictMode>
 );

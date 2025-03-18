@@ -97,8 +97,12 @@ export const Article = () => {
           <div className="w-2/3 h-full flex flex-col gap-3  ">
             <img src={GooleMapImage} alt="google map image" />
             <div className="flex gap-3 text-black/60 flex-wrap ">
-              {post?.tags.map((tag) => (
-                <Button className="px-6 rounded-full " variant="outline">
+              {post?.tags.map((tag, index) => (
+                <Button
+                  key={index}
+                  className="px-6 rounded-full "
+                  variant="outline"
+                >
                   {tag}
                 </Button>
               ))}

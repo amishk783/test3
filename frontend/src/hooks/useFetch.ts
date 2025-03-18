@@ -1,4 +1,6 @@
 import api from "@/lib/api";
+
+import { useMsal } from "@azure/msal-react";
 import { useEffect, useState } from "react";
 
 export const useFetch = <T>(url: string, options?: object) => {
@@ -15,6 +17,7 @@ export const useFetch = <T>(url: string, options?: object) => {
 
       try {
         const response = await api.get<T>(url, options);
+
         setData(response.data);
       } catch (err) {
         setError((err as Error).message);

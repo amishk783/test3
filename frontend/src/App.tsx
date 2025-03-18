@@ -148,8 +148,8 @@ function App() {
               <div className="flex flex-col gap-4 pt-4">
                 <div className="flex text-sm gap-10 md:gap-14">
                   {data?.popularSection.spotLightPopular.subTitles.map(
-                    (subtitle) => (
-                      <p>{subtitle}</p>
+                    (subtitle, index) => (
+                      <p key={index}>{subtitle}</p>
                     )
                   )}
                 </div>
@@ -159,8 +159,11 @@ function App() {
               </div>
             </div>
             <div className="col-span-1 md:row-span-3  grid grid-cols-1 md:grid-rows-3 gap-4  md:gap-8 ">
-              {data?.popularSection.listItems.map((listItem) => (
-                <div className="flex flex-col md:flex-row gap-6 md:row-span-1">
+              {data?.popularSection.listItems.map((listItem, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col md:flex-row gap-6 md:row-span-1"
+                >
                   <img
                     src={listItem.imageUrl}
                     className=" w-full  md:w-[110px] md:h-[110px]  lg:w-[220px] lg:h-[220px] object-cover"

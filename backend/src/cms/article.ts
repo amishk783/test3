@@ -1,3 +1,4 @@
+import config from "../config";
 import { client } from "../sanity/index";
 import { Response, Request } from "express";
 

@@ -2,17 +2,31 @@ import { Button } from "../ui/button";
 import { HiOutlinePlus } from "react-icons/hi2";
 import { IoSearchOutline } from "react-icons/io5";
 import { Input } from "../ui/input";
-import { useState } from "react";
+
 import { Avatar, AvatarImage } from "../ui/avatar";
 
 import { RxHamburgerMenu } from "react-icons/rx";
 
 import profileImage from "@/assets/avatar_demo.jpeg";
 import { Link } from "react-router-dom";
+import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 
 export const Header = () => {
-  const [isUser, setUser] = useState(false);
-  console.log("🚀 ~ Header ~ setUser:", setUser);
+  const isAuth = useIsAuthenticated();
+  console.log("🚀 ~ Header ~ isAuth:", isAuth);
+
+  const { instance } = useMsal();
+
+  const login = async () => {
+    try {
+      const response = await instance.loginRedirect({
+        scopes: ["openid", "offline_access"],
+      });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div className="w-full font-manrope h-min flex items-center justify-between px-4 sm:px-8 py-4 my-4">
       <Link to="/" className="w-36 h-10">
@@ -30,24 +44,23 @@ export const Header = () => {
             className="border-black/20 py-3 pl-10 bg-secondary text-base   rounded-full"
           />
         </div>
-        {!isUser && (
+        {!isAuth && (
           <div className=" hidden lg:flex gap-4">
-            <Link to="/login">
-              <Button
-                variant="outline"
-                className="border-black text-base rounded-full "
-              >
-                Login
-              </Button>
-            </Link>
-            <Link to="/signup">
-              <Button variant="primary" className=" rounded-full text-lg px-8 ">
-                Subscribe
-              </Button>
-            </Link>
+            <Button
+              onClick={login}
+              variant="outline"
+              className="border-black text-base rounded-full "
+            >
+              Login
+            </Button>
           </div>
         )}
-        {isUser && (
+        <Link to="/signup">
+          <Button variant="primary" className=" rounded-full text-lg px-8 ">
+            Subscribe
+          </Button>
+        </Link>
+        {isAuth && (
           <Avatar>
             <AvatarImage src={profileImage} />
           </Avatar>
