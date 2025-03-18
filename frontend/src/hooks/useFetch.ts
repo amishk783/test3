@@ -1,6 +1,5 @@
 import api from "@/lib/api";
 
-import { useMsal } from "@azure/msal-react";
 import { useEffect, useState } from "react";
 
 export const useFetch = <T>(url: string, options?: object) => {

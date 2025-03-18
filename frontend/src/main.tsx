@@ -46,7 +46,7 @@ const router = createBrowserRouter([
   },
 ]);
 export const msalInstance = new PublicClientApplication(msalConfig);
-await msalInstance.initialize();
+msalInstance.initialize();
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <MsalProvider instance={msalInstance}>
