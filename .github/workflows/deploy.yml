@@ -20,16 +20,18 @@ jobs:
 
       - name: Deploy to Azure Container Apps (Frontend)
         run: |
-          az containerapp create --name transitly-frontend \
+          az containerapp update --name transitly-frontend \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
             --environment ${{ secrets.CONTAINER_APP_ENV }} \
             --image amishkumar/myfrontend:v1 \
+            --ingress external \
 
 
       - name: Deploy to Azure Container Apps (Backend)
         run: |
-          az containerapp create --name transitly-backend \
+          az containerapp update --name transitly-backend \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
             --environment ${{ secrets.CONTAINER_APP_ENV }} \
             --image amishkumar/myapp:v1 \
-            --env-vars SANITY_PROJECT_ID=${{ secrets.SANITY_PROJECT_ID }}
+            --ingress external \
+            --set-env-vars SANITY_PROJECT_ID=${{ secrets.SANITY_PROJECT_ID }}
