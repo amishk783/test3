@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-push:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,11 +22,17 @@ jobs:
         run: |
           az containerapp create --name transitly-frontend \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --image amishkumar/myfrontend:v1
+            --environment ${{ secrets.CONTAINER_APP_ENV }} \
+            --image amishkumar/myfrontend:v1 \
+            --ingress external \
+            --target-port 3000
 
       - name: Deploy to Azure Container Apps (Backend)
         run: |
           az containerapp create --name transitly-backend \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
+            --environment ${{ secrets.CONTAINER_APP_ENV }} \
             --image amishkumar/myapp:v1 \
+            --ingress external \
+            --target-port 5000 \
             --set-env-vars SANITY_PROJECT_ID=${{ secrets.SANITY_PROJECT_ID }}
