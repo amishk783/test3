@@ -22,16 +22,16 @@ jobs:
         run: |
           az containerapp update --name transitly-frontend \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --environment ${{ secrets.CONTAINER_APP_ENV }} \
             --image amishkumar/myfrontend:v1 \
             --ingress external \
+            --target-port 80
 
 
       - name: Deploy to Azure Container Apps (Backend)
         run: |
           az containerapp update --name transitly-backend \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --environment ${{ secrets.CONTAINER_APP_ENV }} \
             --image amishkumar/myapp:v1 \
             --ingress external \
+             --target-port 5005 \
             --set-env-vars SANITY_PROJECT_ID=${{ secrets.SANITY_PROJECT_ID }}
