@@ -10,12 +10,13 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import profileImage from "@/assets/avatar_demo.jpeg";
 import { Link } from "react-router-dom";
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 export const Header = () => {
   const isAuth = useIsAuthenticated();
-  console.log("🚀 ~ Header ~ isAuth:", isAuth);
 
-  const { instance } = useMsal();
+  const { instance, inProgress } = useMsal();
 
   const login = async () => {
     try {
@@ -27,6 +28,12 @@ export const Header = () => {
       console.error(error);
     }
   };
+  useEffect(() => {
+    if (inProgress === "handleRedirect") {
+      toast.success("You are logged in! 🎉");
+    }
+  }, [inProgress]);
+
   return (
     <div className="w-full font-manrope h-min flex items-center justify-between px-4 sm:px-8 py-4 my-4">
       <Link to="/" className="w-36 h-10">
