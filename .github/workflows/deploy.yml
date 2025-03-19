@@ -18,25 +18,15 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Log in to Azure Container Registry
-        run: |
-          az acr login --name ${{ secrets.ACR_NAME }}
-
-      - name: Build and push Docker images
-        run: |
-          docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/transitly-frontend:latest ./frontend
-          docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/transitly-backend:latest ./backend
-          docker push ${{ secrets.ACR_NAME }}.azurecr.io/transitly-frontend:latest
-          docker push ${{ secrets.ACR_NAME }}.azurecr.io/transitly-backend:latest
-
       - name: Deploy to Azure Container Apps (Frontend)
         run: |
           az containerapp update --name transitly-frontend \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --image ${{ secrets.ACR_NAME }}.azurecr.io/transitly-frontend:latest
+            --image amishkumar/myfrontend:v1
 
       - name: Deploy to Azure Container Apps (Backend)
         run: |
           az containerapp update --name transitly-backend \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --image ${{ secrets.ACR_NAME }}.azurecr.io/transitly-backend:latest \ --set-env-vars SANITY_PROJECT_ID=${{ secrets.SANITY_PROJECT_ID }}
+            --image amishkumar/myapp:v1 \
+            --set-env-vars SANITY_PROJECT_ID=${{ secrets.SANITY_PROJECT_ID }}
