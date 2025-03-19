@@ -20,13 +20,13 @@ jobs:
 
       - name: Deploy to Azure Container Apps (Frontend)
         run: |
-          az containerapp update --name transitly-frontend \
+          az containerapp create --name transitly-frontend \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
             --image amishkumar/myfrontend:v1
 
       - name: Deploy to Azure Container Apps (Backend)
         run: |
-          az containerapp update --name transitly-backend \
+          az containerapp create --name transitly-backend \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
             --image amishkumar/myapp:v1 \
             --set-env-vars SANITY_PROJECT_ID=${{ secrets.SANITY_PROJECT_ID }}
