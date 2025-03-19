@@ -32,4 +32,4 @@ jobs:
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
             --environment ${{ secrets.CONTAINER_APP_ENV }} \
             --image amishkumar/myapp:v1 \
-            --set-env-vars SANITY_PROJECT_ID=${{ secrets.SANITY_PROJECT_ID }}
+            --env-vars SANITY_PROJECT_ID=${{ secrets.SANITY_PROJECT_ID }}
