@@ -10,6 +10,8 @@ import { useFetch } from "./hooks/useFetch";
 import { ArticleList, HomePageType } from "./type";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 
 function App() {
   const OPTIONS: EmblaOptionsType = { loop: true };
@@ -21,6 +23,7 @@ function App() {
   const [articles, setArticles] = useState<ArticleList[] | null>(
     data?.articleList || null
   );
+  
 
   useEffect(() => {
     if (data?.articleList) {
@@ -124,7 +127,9 @@ function App() {
           )}
           {articles &&
             articles.map((article, index) => (
-              <ArticleCard key={index} {...article} />
+              <Link to={`/articles/${article._id}`}>
+                <ArticleCard key={index} {...article} />
+              </Link>
             ))}
         </div>
         <div className="flex items-center w-full justify-center">

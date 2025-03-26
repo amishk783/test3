@@ -36,6 +36,7 @@ export interface HeroSection {
 }
 
 export interface ArticleList {
+  _id: string;
   categoryId: string;
   title: string;
   date: string;

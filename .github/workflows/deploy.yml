@@ -22,16 +22,20 @@ jobs:
         run: |
           az containerapp update --name transitly-frontend \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --image amishkumar/myfrontend:v1 \
-            --ingress external \
-            --target-port 80
-
+            --image ${{ secrets.ACR_NAME }}.azurecr.io/transitly-frontend:latest \
+            --set-env-vars VITE_CLIENT_ID=${{ secrets.VITE_CLIENT_ID }} \
+                           VITE_AUTHORITY=${{ secrets.VITE_AUTHORITY }} \
+                           VITE_REDIRECT_URI=${{ secrets.VITE_REDIRECT_URI }} \
+                           VITE_KOWN_AUTHORITIES=${{ secrets.VITE_KOWN_AUTHORITIES }} \
+                           VITE_APP_API_URL=${{ secrets.VITE_APP_API_URL }} \
+                           VITE_ENV_MODE=${{ secrets.VITE_ENV_MODE }}
 
       - name: Deploy to Azure Container Apps (Backend)
         run: |
           az containerapp update --name transitly-backend \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --image amishkumar/myapp:v1 \
-            --ingress external \
-             --target-port 5005 \
-            --set-env-vars SANITY_PROJECT_ID=${{ secrets.SANITY_PROJECT_ID }}
+            --image ${{ secrets.ACR_NAME }}.azurecr.io/transitly-backend:latest \
+            --set-env-vars SANITY_PROJECT_ID=${{ secrets.SANITY_PROJECT_ID }} \
+                           TENANT_ID=${{ secrets.TENANT_ID }} \
+                           B2C_POLICY=${{ secrets.B2C_POLICY }} \
+                           B2C_TENANT_NAME=${{ secrets.B2C_TENANT_NAME }}

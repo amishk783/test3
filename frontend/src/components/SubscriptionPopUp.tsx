@@ -4,13 +4,13 @@ import { Button } from "./ui/button";
 export const SubscriptionPopUp = () => {
   return (
     <Modal>
-      <div className="w-1/3 mt-24 bg-white h-min p-10 rounded-xl font-manrope ">
+      <div className=" xl:w-1/3 mt-24 bg-white h-min p-2 py-4 mx-2 md:p-10 rounded-xl font-manrope ">
         <div className="flex flex-col gap-6 w-full items-center justify-center">
-          <h2 className="w-2/3 text-center pb-6 font-bold text-5xl ">
+          <h2 className="w-2/3 text-center pb-6 font-bold text-3xl md:text-5xl ">
             Get access to this article
           </h2>
 
-          <div className=" relative flex flex-col gap-6 w-full border border-black/30 p-8 rounded-2xl">
+          <div className=" relative flex flex-col gap-6 w-full border border-black/30 p-4 sm:p-8 rounded-2xl">
             <div className=" absolute flex items-center justify-center left-[40%] -top-4 w-20 h-8 bg-green-800 rounded-full text-white">
               Monthly
             </div>
@@ -30,7 +30,7 @@ export const SubscriptionPopUp = () => {
               Start Free Trial & Upgrade
             </Button>
           </div>
-          <div className=" relative flex flex-col gap-6 w-full border border-black/30 p-8 rounded-2xl">
+          <div className=" relative flex flex-col gap-6 w-full border border-black/30 p-4 sm:p-8 rounded-2xl">
             <div className="flex justify-between items-center">
               <div>
                 <p className="font-bold">Unlock Now</p>

@@ -2,7 +2,9 @@ import { msalInstance } from "@/main";
 import axios from "axios";
 import { loginRequest } from "./authConfig";
 
-const baseURL = process.env.REACT_APP_API_URL || "http://localhost:5005";
+const baseURL = import.meta.env.VITE_APP_API_URL;
+
+console.log("🚀 ~ baseURL:", baseURL);
 
 const axiosInstance = axios.create({
   baseURL,

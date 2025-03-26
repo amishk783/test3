@@ -15,6 +15,7 @@ export const getHomePage = async (req: Request, res: Response) => {
           subTitles
         },
         "articleList": *[_type == "post"] | order(_createdAt desc)[0...6] {
+          _id,
           title,
           "date": publishedAt,
           "author": author,
@@ -38,5 +39,6 @@ export const getHomePage = async (req: Request, res: Response) => {
     }
   }`);
 
+  console.log("🚀 ~ getHomePage ~ page:", page);
   res.status(200).json(page);
 };

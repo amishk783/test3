@@ -12,6 +12,7 @@ import { PostType } from "@/type";
 import { Button } from "@/components/ui/button";
 import { useFetch } from "@/hooks/useFetch";
 import { useEffect, useState } from "react";
+import { usePaywall } from "@/store/PaywallProvider";
 
 export const Article = () => {
   const { id: articleId } = useParams();
@@ -22,8 +23,14 @@ export const Article = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const { updateArticleCounter } = usePaywall();
+  useEffect(() => {
+    updateArticleCounter();
+  }, []);
+
+  const { articleCounter } = usePaywall();
   const subHeadings =
-    post &&
+    post?.body &&
     post.body.reduce((acc: string[], chunkBody) => {
       if (
         (chunkBody.style === "h2" || chunkBody.style === "h3") &&
@@ -65,13 +72,17 @@ export const Article = () => {
 
   if (loading || !post)
     return (
-      <div className=" w-full  h-[70vh] flex items-center justify-center">
+      <div className=" w-full  h-[60vh] flex items-center justify-center">
         <Loader size={60} className=" animate-spin" />;
       </div>
     );
-
   const formattedDate = format(post?.publishedAt, "MMMM d, yyyy");
-
+  if (articleCounter > 2)
+    return (
+      <div className=" w-full  h-[60vh] flex items-center justify-center">
+        <h2>Please Subscribe</h2>
+      </div>
+    );
   return (
     <div className="w-full h-full ">
       <div className=" lg:max-container  flex flex-col gap-10 pb-10 px-2">
@@ -97,15 +108,16 @@ export const Article = () => {
           <div className="w-2/3 h-full flex flex-col gap-3  ">
             <img src={GooleMapImage} alt="google map image" />
             <div className="flex gap-3 text-black/60 flex-wrap ">
-              {post?.tags.map((tag, index) => (
-                <Button
-                  key={index}
-                  className="px-6 rounded-full "
-                  variant="outline"
-                >
-                  {tag}
-                </Button>
-              ))}
+              {post.tags &&
+                post?.tags.map((tag, index) => (
+                  <Button
+                    key={index}
+                    className="px-6 rounded-full "
+                    variant="outline"
+                  >
+                    {tag}
+                  </Button>
+                ))}
             </div>
           </div>
         </div>

@@ -3,7 +3,9 @@ import { client } from "../sanity/index";
 import { Response, Request } from "express";
 
 export const getArticles = async (req: Request, res: Response) => {
-  const posts = await client.fetch('*[_type == "post"]');
+  const posts = await client.fetch(
+    '*[_type == "post"]{_id, title, description, imageUrl, categoryId, date, author}'
+  );
 
   res.status(200).json(posts);
 };
@@ -17,5 +19,6 @@ export const getArticle = async (req: Request, res: Response) => {
   
 }`);
 
+  
   res.status(200).json(post[0]);
 };

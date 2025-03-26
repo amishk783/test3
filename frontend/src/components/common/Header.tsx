@@ -3,23 +3,25 @@ import { HiOutlinePlus } from "react-icons/hi2";
 import { IoSearchOutline } from "react-icons/io5";
 import { Input } from "../ui/input";
 
-import { Avatar, AvatarImage } from "../ui/avatar";
-
 import { RxHamburgerMenu } from "react-icons/rx";
 
 import profileImage from "@/assets/avatar_demo.jpeg";
 import { Link } from "react-router-dom";
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { AvatarPopover } from "../AvatarPopover";
 
 export const Header = () => {
   const isAuth = useIsAuthenticated();
 
   const { instance, inProgress } = useMsal();
+  const [isLoading, setIsLoading] = useState(false);
+ 
 
   const login = async () => {
     try {
+     
       const response = await instance.loginRedirect({
         scopes: ["openid", "offline_access"],
       });
@@ -30,6 +32,7 @@ export const Header = () => {
   };
   useEffect(() => {
     if (inProgress === "handleRedirect") {
+      setIsLoading(true);
       toast.success("You are logged in! 🎉");
     }
   }, [inProgress]);
@@ -62,18 +65,20 @@ export const Header = () => {
             </Button>
           </div>
         )}
-        <Link to="/signup">
-          <Button variant="primary" className=" rounded-full text-lg px-8 ">
-            Subscribe
-          </Button>
-        </Link>
-        {isAuth && (
-          <Avatar>
-            <AvatarImage src={profileImage} />
-          </Avatar>
-        )}
-        <div className="lg:hidden">
-          <RxHamburgerMenu size={30} />
+
+        <div className="flex  gap-2 items-center">
+          <Link to="/signup">
+            <Button
+              variant="primary"
+              className=" hidden md:block  rounded-full px-8 "
+            >
+              Subscribe
+            </Button>
+          </Link>
+          {(isLoading || isAuth) && <AvatarPopover src={profileImage} />}
+          <div className="sm:hidden">
+            <RxHamburgerMenu size={30} />
+          </div>
         </div>
       </div>
     </div>

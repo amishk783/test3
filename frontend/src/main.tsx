@@ -23,6 +23,7 @@ import {
 } from "@azure/msal-browser";
 import { msalConfig } from "./lib/authConfig.ts";
 import { ProtectedRoutes } from "./lib/ProtectedRoutes.tsx";
+import { PaywallProvider } from "./store/PaywallProvider.tsx";
 
 export const msalInstance = new PublicClientApplication(msalConfig);
 
@@ -71,8 +72,10 @@ msalInstance.initialize().then(() => {
   createRoot(document.getElementById("root")!).render(
     <StrictMode>
       <MsalProvider instance={msalInstance}>
-        <RouterProvider router={router}></RouterProvider>
-        <Toaster/>
+        <PaywallProvider>
+          <RouterProvider router={router}></RouterProvider>
+        </PaywallProvider>
+        <Toaster />
       </MsalProvider>
     </StrictMode>
   );

@@ -43,14 +43,14 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
               </div>
 
               <div className="absolute  bottom-8 flex flex-col gap-4 left-14">
-                <h2 className="text-6xl w-[60%] text-wrap font-bold text-white">
+                <h2 className=" text-3xl md:text-6xl md:w-[60%] text-wrap font-bold text-white">
                   {slide.title}
                 </h2>
-                <div className=" flex gap-12">
+                <div className=" flex gap-4  md:gap-12">
                   {slide.subTitles.map((subtitle, index) => (
                     <div
                       key={index}
-                      className="flex items-center gap-8 text-white/70"
+                      className="flex items-center gap-4 md:gap-8 text-white/70"
                     >
                       <p>{subtitle}</p>
                       {index !== slidesLength  && (
